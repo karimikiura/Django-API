@@ -1,0 +1,33 @@
+from django.test import TestCase
+
+from django.contrib.auth.models import User
+
+from .models import Post
+
+class BlogTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Create user
+        testuser1 = User.objects.create_user(
+            username='testuser1', password='test12345'
+        )
+        testuser1.save()
+
+        # Create blog post
+        test_post = Post.objects.create(
+            author=testuser1, title="Blog title 1", body="Body content..."
+        )
+        test_post.save()
+
+        def test_blog_content(self):
+            post = Post.objects.get(id=1)
+            author = f'{post.author}'
+            title = f'{post.title}'
+            body = f'{post.body}'
+
+            self.assertEqual(author, 'testuser1')
+            self.assertEqual(title, 'Blog title 1')
+            self.assertEqual(body, 'Body content...')
+
+
