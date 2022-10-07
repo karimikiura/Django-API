@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'posts',
 
     # 3rd party
+    # 'rest_framework_swagger', deprecated - reqs staticfiles deprecated in django 3
+    'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_auth.registration',
+
 
 ]
 
@@ -73,11 +76,14 @@ REST_FRAMEWORK = {
     'rest_framework.authentication.SessionAuthentication', #serves the browsabel API - LOGIN/OUT
     'rest_framework.authenication.TokenAuthentication'  # makes token available btw diff frontends - new token for @ user, stored locally
                                                         
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 SITE_ID = 2
     
+
+
 
 
 MIDDLEWARE = [
@@ -141,6 +147,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #output emails in the console .smpt for email server setup
+
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+}
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  
+STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
